@@ -1,0 +1,348 @@
+<!DOCTYPE html><html lang="en" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>CSS Layout | Robert Wu</title><meta name="description" content="CSS Layout"><meta name="author" content="Robert Wu"><meta name="copyright" content="Robert Wu"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/RobertRWu/RobertWuCDN@1.1/imgs/blog/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="CSS Layout"><meta name="twitter:description" content="CSS Layout"><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/RobertRWu/RobertWuCDN/imgs/docu-cover/css.jpg"><meta property="og:type" content="article"><meta property="og:title" content="CSS Layout"><meta property="og:url" content="https://robertrwu.github.io/blog/2020/03/20/CSS-Layout/"><meta property="og:site_name" content="Robert Wu"><meta property="og:description" content="CSS Layout"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/RobertRWu/RobertWuCDN/imgs/docu-cover/css.jpg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script><!-- hexo-inject:begin --><!-- hexo-inject:end -->const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/blog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="https://robertrwu.github.io/blog/2020/03/20/CSS-Layout/"><link rel="prev" title="CSS Transform" href="https://robertrwu.github.io/blog/2020/03/20/CSS-Transform/"><link rel="next" title="CSS Text Formatting" href="https://robertrwu.github.io/blog/2020/03/20/CSS-Text-Formatting/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/blog/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: 'Press',
+    message_next: 'to bookmark this page'
+  },
+  runtime_unit: 'days',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  isHome: false,
+  isPost: true
+  
+}</script><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head><body><canvas class="fireworks"></canvas><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/blog/">Robert Wu</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/blog/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/blog/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> Life</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/blog/gallery/"><i class="fa-fw fa fa-camera"></i><span> Gallery</span></a></li><li><a class="site-page" href="/blog/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/blog/movies/"><i class="fa-fw fa fa-film"></i><span> Movies</span></a></li><li><a class="site-page" href="/blog/games/"><i class="fa-fw fa fa-gamepad"></i><span> Games</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/blog/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div></div></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/RobertRWu/RobertWuCDN@1.1/imgs/blog/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/blog/archives/"><div class="headline">Articles</div><div class="length_num">38</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/blog/categories/"><div class="headline">Categories</div><div class="length_num">11</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/blog/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/blog/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> Life</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/blog/gallery/"><i class="fa-fw fa fa-camera"></i><span> Gallery</span></a></li><li><a class="site-page" href="/blog/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/blog/movies/"><i class="fa-fw fa fa-film"></i><span> Movies</span></a></li><li><a class="site-page" href="/blog/games/"><i class="fa-fw fa fa-gamepad"></i><span> Games</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/blog/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">Catalog</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#Basic-Conception"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">Basic Conception</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Containing-Block"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">Containing Block</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Description"><span class="toc_mobile_items-number">1.1.1.</span> <span class="toc_mobile_items-text">Description</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Normal-Flow"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text">Normal Flow</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Description-1"><span class="toc_mobile_items-number">1.2.1.</span> <span class="toc_mobile_items-text">Description</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Properties"><span class="toc_mobile_items-number">1.2.2.</span> <span class="toc_mobile_items-text">Properties</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#In-the-Normal-Flow"><span class="toc_mobile_items-number">1.2.2.1.</span> <span class="toc_mobile_items-text">In the Normal Flow</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Not-in-the-Normal-Flow"><span class="toc_mobile_items-number">1.2.2.2.</span> <span class="toc_mobile_items-text">Not in the Normal Flow</span></a></li></ol></li></ol></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#CSS-Box-Model"><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text">CSS Box Model</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Description-2"><span class="toc_mobile_items-number">2.1.</span> <span class="toc_mobile_items-text">Description</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Attributes-about-Box-Model"><span class="toc_mobile_items-number">2.2.</span> <span class="toc_mobile_items-text">Attributes about Box Model</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#height-and-width"><span class="toc_mobile_items-number">2.2.1.</span> <span class="toc_mobile_items-text">height and width</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Properties-1"><span class="toc_mobile_items-number">2.2.1.1.</span> <span class="toc_mobile_items-text">Properties</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#overflow"><span class="toc_mobile_items-number">2.2.2.</span> <span class="toc_mobile_items-text">overflow</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Description-3"><span class="toc_mobile_items-number">2.2.2.1.</span> <span class="toc_mobile_items-text">Description</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Value"><span class="toc_mobile_items-number">2.2.2.2.</span> <span class="toc_mobile_items-text">Value</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#margin"><span class="toc_mobile_items-number">2.2.3.</span> <span class="toc_mobile_items-text">margin</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Properties-2"><span class="toc_mobile_items-number">2.2.3.1.</span> <span class="toc_mobile_items-text">Properties</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Vertical-Margin"><span class="toc_mobile_items-number">2.2.3.2.</span> <span class="toc_mobile_items-text">Vertical Margin</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#padding"><span class="toc_mobile_items-number">2.2.4.</span> <span class="toc_mobile_items-text">padding</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Properties-3"><span class="toc_mobile_items-number">2.2.4.1.</span> <span class="toc_mobile_items-text">Properties</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#border"><span class="toc_mobile_items-number">2.2.5.</span> <span class="toc_mobile_items-text">border</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Properties-4"><span class="toc_mobile_items-number">2.2.5.1.</span> <span class="toc_mobile_items-text">Properties</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#display"><span class="toc_mobile_items-number">2.2.6.</span> <span class="toc_mobile_items-text">display</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Description-4"><span class="toc_mobile_items-number">2.2.6.1.</span> <span class="toc_mobile_items-text">Description</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Value-1"><span class="toc_mobile_items-number">2.2.6.2.</span> <span class="toc_mobile_items-text">Value</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#visibility"><span class="toc_mobile_items-number">2.2.7.</span> <span class="toc_mobile_items-text">visibility</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Description-5"><span class="toc_mobile_items-number">2.2.7.1.</span> <span class="toc_mobile_items-text">Description</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Value-2"><span class="toc_mobile_items-number">2.2.7.2.</span> <span class="toc_mobile_items-text">Value</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#box-sizing"><span class="toc_mobile_items-number">2.2.8.</span> <span class="toc_mobile_items-text">box-sizing</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Description-6"><span class="toc_mobile_items-number">2.2.8.1.</span> <span class="toc_mobile_items-text">Description</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Values"><span class="toc_mobile_items-number">2.2.8.2.</span> <span class="toc_mobile_items-text">Values</span></a></li></ol></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Position"><span class="toc_mobile_items-number">2.3.</span> <span class="toc_mobile_items-text">Position</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Float"><span class="toc_mobile_items-number">2.4.</span> <span class="toc_mobile_items-text">Float</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Description-7"><span class="toc_mobile_items-number">2.4.1.</span> <span class="toc_mobile_items-text">Description</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Value-3"><span class="toc_mobile_items-number">2.4.2.</span> <span class="toc_mobile_items-text">Value</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Properties-5"><span class="toc_mobile_items-number">2.4.3.</span> <span class="toc_mobile_items-text">Properties</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#position"><span class="toc_mobile_items-number">2.5.</span> <span class="toc_mobile_items-text">position</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Description-8"><span class="toc_mobile_items-number">2.5.1.</span> <span class="toc_mobile_items-text">Description</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Values-1"><span class="toc_mobile_items-number">2.5.2.</span> <span class="toc_mobile_items-text">Values</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Priority"><span class="toc_mobile_items-number">2.5.3.</span> <span class="toc_mobile_items-text">Priority</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#z-index"><span class="toc_mobile_items-number">2.6.</span> <span class="toc_mobile_items-text">z-index</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Description-9"><span class="toc_mobile_items-number">2.6.1.</span> <span class="toc_mobile_items-text">Description</span></a></li></ol></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#Flex-Box"><span class="toc_mobile_items-number">3.</span> <span class="toc_mobile_items-text">Flex Box</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Description-10"><span class="toc_mobile_items-number">3.1.</span> <span class="toc_mobile_items-text">Description</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Properties-6"><span class="toc_mobile_items-number">3.2.</span> <span class="toc_mobile_items-text">Properties</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Attributes-for-Flex-Box"><span class="toc_mobile_items-number">3.3.</span> <span class="toc_mobile_items-text">Attributes for Flex Box</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#justify-content"><span class="toc_mobile_items-number">3.3.1.</span> <span class="toc_mobile_items-text">justify-content</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Description-11"><span class="toc_mobile_items-number">3.3.1.1.</span> <span class="toc_mobile_items-text">Description</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Value-4"><span class="toc_mobile_items-number">3.3.1.2.</span> <span class="toc_mobile_items-text">Value</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#flex-wrap"><span class="toc_mobile_items-number">3.3.2.</span> <span class="toc_mobile_items-text">flex-wrap</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Description-12"><span class="toc_mobile_items-number">3.3.2.1.</span> <span class="toc_mobile_items-text">Description</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Value-5"><span class="toc_mobile_items-number">3.3.2.2.</span> <span class="toc_mobile_items-text">Value</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#flex-direction"><span class="toc_mobile_items-number">3.3.3.</span> <span class="toc_mobile_items-text">flex-direction</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Description-13"><span class="toc_mobile_items-number">3.3.3.1.</span> <span class="toc_mobile_items-text">Description</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Value-6"><span class="toc_mobile_items-number">3.3.3.2.</span> <span class="toc_mobile_items-text">Value</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#flex-flow"><span class="toc_mobile_items-number">3.3.4.</span> <span class="toc_mobile_items-text">flex-flow</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Description-14"><span class="toc_mobile_items-number">3.3.4.1.</span> <span class="toc_mobile_items-text">Description</span></a></li></ol></li></ol></li></ol></li></ol></div></div></div><div id="body-wrap"><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Basic-Conception"><span class="toc-number">1.</span> <span class="toc-text">Basic Conception</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Containing-Block"><span class="toc-number">1.1.</span> <span class="toc-text">Containing Block</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-number">1.1.1.</span> <span class="toc-text">Description</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Normal-Flow"><span class="toc-number">1.2.</span> <span class="toc-text">Normal Flow</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Properties"><span class="toc-number">1.2.2.</span> <span class="toc-text">Properties</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#In-the-Normal-Flow"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">In the Normal Flow</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Not-in-the-Normal-Flow"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">Not in the Normal Flow</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS-Box-Model"><span class="toc-number">2.</span> <span class="toc-text">CSS Box Model</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description-2"><span class="toc-number">2.1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Attributes-about-Box-Model"><span class="toc-number">2.2.</span> <span class="toc-text">Attributes about Box Model</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#height-and-width"><span class="toc-number">2.2.1.</span> <span class="toc-text">height and width</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Properties-1"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">Properties</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#overflow"><span class="toc-number">2.2.2.</span> <span class="toc-text">overflow</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Description-3"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Value"><span class="toc-number">2.2.2.2.</span> <span class="toc-text">Value</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#margin"><span class="toc-number">2.2.3.</span> <span class="toc-text">margin</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Properties-2"><span class="toc-number">2.2.3.1.</span> <span class="toc-text">Properties</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Vertical-Margin"><span class="toc-number">2.2.3.2.</span> <span class="toc-text">Vertical Margin</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#padding"><span class="toc-number">2.2.4.</span> <span class="toc-text">padding</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Properties-3"><span class="toc-number">2.2.4.1.</span> <span class="toc-text">Properties</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#border"><span class="toc-number">2.2.5.</span> <span class="toc-text">border</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Properties-4"><span class="toc-number">2.2.5.1.</span> <span class="toc-text">Properties</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#display"><span class="toc-number">2.2.6.</span> <span class="toc-text">display</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Description-4"><span class="toc-number">2.2.6.1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Value-1"><span class="toc-number">2.2.6.2.</span> <span class="toc-text">Value</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#visibility"><span class="toc-number">2.2.7.</span> <span class="toc-text">visibility</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Description-5"><span class="toc-number">2.2.7.1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Value-2"><span class="toc-number">2.2.7.2.</span> <span class="toc-text">Value</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#box-sizing"><span class="toc-number">2.2.8.</span> <span class="toc-text">box-sizing</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Description-6"><span class="toc-number">2.2.8.1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Values"><span class="toc-number">2.2.8.2.</span> <span class="toc-text">Values</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Position"><span class="toc-number">2.3.</span> <span class="toc-text">Position</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Float"><span class="toc-number">2.4.</span> <span class="toc-text">Float</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description-7"><span class="toc-number">2.4.1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Value-3"><span class="toc-number">2.4.2.</span> <span class="toc-text">Value</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Properties-5"><span class="toc-number">2.4.3.</span> <span class="toc-text">Properties</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#position"><span class="toc-number">2.5.</span> <span class="toc-text">position</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description-8"><span class="toc-number">2.5.1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Values-1"><span class="toc-number">2.5.2.</span> <span class="toc-text">Values</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Priority"><span class="toc-number">2.5.3.</span> <span class="toc-text">Priority</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#z-index"><span class="toc-number">2.6.</span> <span class="toc-text">z-index</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description-9"><span class="toc-number">2.6.1.</span> <span class="toc-text">Description</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Flex-Box"><span class="toc-number">3.</span> <span class="toc-text">Flex Box</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description-10"><span class="toc-number">3.1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Properties-6"><span class="toc-number">3.2.</span> <span class="toc-text">Properties</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Attributes-for-Flex-Box"><span class="toc-number">3.3.</span> <span class="toc-text">Attributes for Flex Box</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#justify-content"><span class="toc-number">3.3.1.</span> <span class="toc-text">justify-content</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Description-11"><span class="toc-number">3.3.1.1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Value-4"><span class="toc-number">3.3.1.2.</span> <span class="toc-text">Value</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flex-wrap"><span class="toc-number">3.3.2.</span> <span class="toc-text">flex-wrap</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Description-12"><span class="toc-number">3.3.2.1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Value-5"><span class="toc-number">3.3.2.2.</span> <span class="toc-text">Value</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flex-direction"><span class="toc-number">3.3.3.</span> <span class="toc-text">flex-direction</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Description-13"><span class="toc-number">3.3.3.1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Value-6"><span class="toc-number">3.3.3.2.</span> <span class="toc-text">Value</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flex-flow"><span class="toc-number">3.3.4.</span> <span class="toc-text">flex-flow</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Description-14"><span class="toc-number">3.3.4.1.</span> <span class="toc-text">Description</span></a></li></ol></li></ol></li></ol></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/RobertRWu/RobertWuCDN/imgs/docu-cover/css.jpg)"><div id="post-info"><div id="post-title"><div class="posttitle">CSS Layout</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> Created 2020-03-20<span class="post-meta__separator">|</span><i class="fa fa-history fa-fw" aria-hidden="true"></i> Updated 2020-03-23</time><span class="post-meta__separator">|</span><span><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/blog/categories/Computer-Science/">Computer Science</a><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/blog/categories/Computer-Science/Language/">Language</a><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon fa-fw" aria-hidden="true"></i><a class="post-meta__categories" href="/blog/categories/Computer-Science/Language/CSS/">CSS</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon fa-fw" aria-hidden="true"></i><span>Word count:</span><span class="word-count">1.2k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon fa-fw" aria-hidden="true"></i><span>Reading time: 7 min</span><div class="post-meta-pv-cv"><span class="post-meta__separator">|</span><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>Post View:</span><span id="busuanzi_value_page_pv"></span><span class="post-meta__separator">|</span><i class="fa fa-comments-o post-meta__icon fa-fw" aria-hidden="true"></i><span>comments:</span><a href="/blog/2020/03/20/CSS-Layout/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count comment-count" data-xid="/blog/2020/03/20/CSS-Layout/" itemprop="commentCount"></span></a></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="Basic-Conception"><a href="#Basic-Conception" class="headerlink" title="Basic Conception"></a>Basic Conception</h1><h2 id="Containing-Block"><a href="#Containing-Block" class="headerlink" title="Containing Block"></a>Containing Block</h2><h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>Containing block is the nearest ancestor block element of current element.</p>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><h2 id="Normal-Flow"><a href="#Normal-Flow" class="headerlink" title="Normal Flow"></a>Normal Flow</h2><h3 id="Description-1"><a href="#Description-1" class="headerlink" title="Description"></a>Description</h3><p>Website is a multi-level structure and only the top level is displayed. We call the lowest level “normal flow”. Every element that we create is in the normal flow by default.</p>
+<h3 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h3><h4 id="In-the-Normal-Flow"><a href="#In-the-Normal-Flow" class="headerlink" title="In the Normal Flow"></a>In the Normal Flow</h4><ul>
+<li><p>Block Element</p>
+<ul>
+<li>Block element will occupy a line exclusively.</li>
+<li>The default width equals to its parent’s width.</li>
+<li>The default height equals to its children’s height.</li>
+</ul>
+</li>
+<li><p>Inline Element</p>
+<ul>
+<li>Inline element will not occupy a line exclusively.</li>
+<li>If a line can’t contain all inline elements, then the exceeding element will occupy a new line.</li>
+<li>Inline elements do not support <code>width</code> and <code>height</code>.</li>
+</ul>
+</li>
+<li>Inline-block Element<ul>
+<li>A block element and do not occupy a line exclusively.</li>
+</ul>
+</li>
+</ul>
+<h4 id="Not-in-the-Normal-Flow"><a href="#Not-in-the-Normal-Flow" class="headerlink" title="Not in the Normal Flow"></a>Not in the Normal Flow</h4><p>We can call element not in the normal flow “floated element”.</p>
+<ul>
+<li>Elements in the normal flow can overlap with floated elements. But text will not be overlapped, instead, text will wrap the floated element.</li>
+<li>The floated element will be placed under the bottom of normal flow.</li>
+<li>All floated elements will display at top left by default and can be overlapped with elements in the normal flow. </li>
+<li>Floated elements are displayed by order, which means they can’t be overlapped with each other.</li>
+<li>Floated element will not exceed its parent’s area.</li>
+<li>Floated element is arranged horizontally.</li>
+<li>Floated element is like inline-block element (Both block and inline).</li>
+</ul>
+<h1 id="CSS-Box-Model"><a href="#CSS-Box-Model" class="headerlink" title="CSS Box Model"></a>CSS Box Model</h1><h2 id="Description-2"><a href="#Description-2" class="headerlink" title="Description"></a>Description</h2><p>Each element in CSS can be regarded as a box model. This model includes four parts:</p>
+<ul>
+<li><p><strong>Margin</strong></p>
+<p>  Have <strong>no color</strong>.</p>
+</li>
+<li><p><strong>Border</strong></p>
+<p>  Its color is affected by the background color.</p>
+</li>
+<li><p><strong>Padding</strong></p>
+<p>  Its color is affected by the background color.</p>
+</li>
+<li><p><strong>Content</strong></p>
+</li>
+</ul>
+<p><a href="https://cdn.jsdelivr.net/gh/RobertRWu/robert-docu-imgs/cs/language/css/css-box-model/box-model.gif" target="_blank" rel="noopener" data-fancybox="group" data-caption="img" class="fancybox"><img alt="img" title="img" data-src="https://cdn.jsdelivr.net/gh/RobertRWu/robert-docu-imgs/cs/language/css/css-box-model/box-model.gif" class="lazyload"></a></p>
+<h2 id="Attributes-about-Box-Model"><a href="#Attributes-about-Box-Model" class="headerlink" title="Attributes about Box Model"></a>Attributes about Box Model</h2><h3 id="height-and-width"><a href="#height-and-width" class="headerlink" title="height and width"></a>height and width</h3><h4 id="Properties-1"><a href="#Properties-1" class="headerlink" title="Properties"></a>Properties</h4><ul>
+<li>If the parent’s height is smaller than its children’s height, the children will exceed its parent’s area.</li>
+<li>Inline elements do not support <code>width</code> and <code>height</code>.</li>
+</ul>
+<h3 id="overflow"><a href="#overflow" class="headerlink" title="overflow"></a>overflow</h3><h4 id="Description-3"><a href="#Description-3" class="headerlink" title="Description"></a>Description</h4><p>Set how does the parent element deal with the situation when its children exceed its area.</p>
+<h4 id="Value"><a href="#Value" class="headerlink" title="Value"></a>Value</h4><ul>
+<li><p><code>visible</code></p>
+<p>  Default value, allow the overflow .</p>
+</li>
+<li><p><code>scroll</code></p>
+<p>  Add a vertical scroll bar and a horizontal scroll bar to see the overflow content.</p>
+</li>
+<li><p><code>hidden</code></p>
+<p>  The overflow part can’t be seen.</p>
+</li>
+<li><p><code>auto</code></p>
+<p>  If there is a overflow, there will be a scroll bar.</p>
+</li>
+</ul>
+<h3 id="margin"><a href="#margin" class="headerlink" title="margin"></a>margin</h3><h4 id="Properties-2"><a href="#Properties-2" class="headerlink" title="Properties"></a>Properties</h4><ul>
+<li><code>margin-bottom</code> and <code>margin-right</code> will affect other box’s position</li>
+<li><code>margin-top</code> and <code>margin-left</code> will affect its own position</li>
+<li>margin for inline elements <strong>will not affect layout in vertical direction</strong>, which means other elements below will not move down.</li>
+</ul>
+<h4 id="Vertical-Margin"><a href="#Vertical-Margin" class="headerlink" title="Vertical Margin"></a>Vertical Margin</h4><p>If two boxes “a” and “b” are adjacent, for example, a is above b. No matter they are siblings or parent and child, their vertical margin will choose the maximum value of a’s <code>margin-bottom</code> and b’s <code>margin-top</code> instead of the sum of them.</p>
+<p>For example:</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">html</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"a"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"b"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">css</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.a</span> &#123;</span><br><span class="line">    <span class="attribute">margin-bottom</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.b</span> &#123;</span><br><span class="line">    <span class="attribute">margin-top</span>: <span class="number">200px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>The distance between a and b will be <code>200px</code> instead of <code>300px</code>.</p>
+<h3 id="padding"><a href="#padding" class="headerlink" title="padding"></a>padding</h3><h4 id="Properties-3"><a href="#Properties-3" class="headerlink" title="Properties"></a>Properties</h4><ul>
+<li>paddings for inline elements will not affect layout in vertical direction, which means other elements below will not move down.</li>
+</ul>
+<h3 id="border"><a href="#border" class="headerlink" title="border"></a>border</h3><h4 id="Properties-4"><a href="#Properties-4" class="headerlink" title="Properties"></a>Properties</h4><ul>
+<li>borders for inline elements will not affect layout in vertical direction, which means other elements below will not move down.</li>
+</ul>
+<h3 id="display"><a href="#display" class="headerlink" title="display"></a>display</h3><h4 id="Description-4"><a href="#Description-4" class="headerlink" title="Description"></a>Description</h4><p>Set the element’s display type</p>
+<h4 id="Value-1"><a href="#Value-1" class="headerlink" title="Value"></a>Value</h4><ul>
+<li><p><code>inline</code></p>
+<p>  Set as an inline element.</p>
+</li>
+<li><p><code>block</code></p>
+<p>  Set as a block element.</p>
+</li>
+<li><p><code>inline-block</code></p>
+<p>  Set as a block element and do not occupy a line exclusively.</p>
+</li>
+<li><p><code>table</code></p>
+<p>  Set as a table</p>
+</li>
+<li><p><code>none</code></p>
+<p>  Don’t display in the website. The element doesn’t occupy the space.</p>
+</li>
+</ul>
+<h3 id="visibility"><a href="#visibility" class="headerlink" title="visibility"></a>visibility</h3><h4 id="Description-5"><a href="#Description-5" class="headerlink" title="Description"></a>Description</h4><p>Set if display or not.</p>
+<h4 id="Value-2"><a href="#Value-2" class="headerlink" title="Value"></a>Value</h4><ul>
+<li><p><code>visible</code></p>
+<p>  Visible.</p>
+</li>
+<li><p><code>hidden</code></p>
+<p>  Make the element transparent. You can’t see it but it still occupy the space.</p>
+</li>
+</ul>
+<h3 id="box-sizing"><a href="#box-sizing" class="headerlink" title="box-sizing"></a>box-sizing</h3><h4 id="Description-6"><a href="#Description-6" class="headerlink" title="Description"></a>Description</h4><p>The <strong><code>box-sizing</code></strong> sets how the total width and height of an box is calculated.</p>
+<h4 id="Values"><a href="#Values" class="headerlink" title="Values"></a>Values</h4><ul>
+<li><p><code>content-box</code></p>
+<p>  If you set an element’s width to 100 pixels, then the element’s content box will be 100 pixels wide, and the width of any border or padding will be added to the final rendered width, making the element wider than 100px.</p>
+</li>
+<li><p><code>border-box</code></p>
+<p>  If you set an element’s width to 100 pixels, that 100 pixels will include any border or padding you added, and the content box will shrink to absorb that extra width. This typically makes it much easier to size elements.</p>
+</li>
+</ul>
+<h2 id="Position"><a href="#Position" class="headerlink" title="Position"></a>Position</h2><h2 id="Float"><a href="#Float" class="headerlink" title="Float"></a>Float</h2><h3 id="Description-7"><a href="#Description-7" class="headerlink" title="Description"></a>Description</h3><p>We can make an element move left or right relative to its parent element. </p>
+<h3 id="Value-3"><a href="#Value-3" class="headerlink" title="Value"></a>Value</h3><ul>
+<li><p><code>none</code></p>
+<p>  Default, do not float.</p>
+</li>
+<li><p><code>left</code></p>
+<p>  Float to left. Make the element float from the normal flow.</p>
+</li>
+<li><p><code>right</code></p>
+<p>  Float to right. Make the element float from the normal flow.</p>
+</li>
+</ul>
+<h3 id="Properties-5"><a href="#Properties-5" class="headerlink" title="Properties"></a>Properties</h3><ul>
+<li>When <code>float</code> is set, the element’s box will not occupy the whole horizontal direction. </li>
+</ul>
+<h2 id="position"><a href="#position" class="headerlink" title="position"></a>position</h2><h3 id="Description-8"><a href="#Description-8" class="headerlink" title="Description"></a>Description</h3><p>This sets how an element is positioned in a document. The <code>top</code>, <code>bottom</code>, <code>left</code> and <code>right</code> properties determine the final location of positioned elements.</p>
+<h3 id="Values-1"><a href="#Values-1" class="headerlink" title="Values"></a>Values</h3><ul>
+<li><p><code>static</code></p>
+<p>  The element is positioned according to the normal flow of the document. The <code>top</code>, <code>bottom</code>, <code>left</code>, <code>right</code> and <code>z-index</code> properties have no effect. This is the <strong>default</strong> value.</p>
+</li>
+<li><p><code>relative</code></p>
+<p>  The element is positioned according to the normal flow of the document, and then offset relative to itself based on the values of <code>top</code>, <code>right</code>, <code>bottom</code>, and <code>left</code>. </p>
+</li>
+<li><p><code>absolute</code></p>
+<ul>
+<li>Element with <code>absolute</code> will be floated element. </li>
+<li>Element’s containing block will be the <strong>nearest ancestor block element with the <code>position</code> open.</strong></li>
+<li>Element will be positioned <strong>relative to its containing block</strong>.</li>
+</ul>
+</li>
+<li><p><code>fixed</code></p>
+<ul>
+<li><code>fixed</code> is a special case of <code>absolute</code></li>
+<li><code>fixed</code> element always positions <strong>relative to the viewport</strong>.</li>
+<li><code>fixed</code> element won’t scroll with the scroll bar.</li>
+</ul>
+</li>
+<li><p><code>sticky</code></p>
+<ul>
+<li><code>sticky</code> is a special case of <code>relative</code></li>
+<li><code>sticky</code> element will become <code>fixed</code> when scroll it to a certain position.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Priority"><a href="#Priority" class="headerlink" title="Priority"></a>Priority</h3><p>left &gt; right (<code>left</code>, <code>margin-left</code>, <code>padding-left</code>), top &gt; bottom</p>
+<p><code>left &gt; margin-left</code></p>
+<p><code>top &gt; margin-top</code></p>
+<h2 id="z-index"><a href="#z-index" class="headerlink" title="z-index"></a>z-index</h2><h3 id="Description-9"><a href="#Description-9" class="headerlink" title="Description"></a>Description</h3><p><code>z-index</code> sets the z-order of a positioned element and its descendants or flex items. Overlapping elements with a larger z-index cover those with a smaller one.</p>
+<h1 id="Flex-Box"><a href="#Flex-Box" class="headerlink" title="Flex Box"></a>Flex Box</h1><h2 id="Description-10"><a href="#Description-10" class="headerlink" title="Description"></a>Description</h2><p>Use <code>display: flex</code> to set an element as a <strong>flex box</strong>. All of its children element will be <strong>flex items</strong>. </p>
+<p>A flex box has two axes, <strong>the main axis and the cross axis</strong>. The main axis is defined by the <code>flex-direction</code> attribute, And the cross axis runs perpendicular to it.</p>
+<h2 id="Properties-6"><a href="#Properties-6" class="headerlink" title="Properties"></a>Properties</h2><ul>
+<li>Flex items will automatically adjust their width when the sum of children’s width is bigger than their parent’s width.</li>
+</ul>
+<h2 id="Attributes-for-Flex-Box"><a href="#Attributes-for-Flex-Box" class="headerlink" title="Attributes for Flex Box"></a>Attributes for Flex Box</h2><h3 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h3><h4 id="Description-11"><a href="#Description-11" class="headerlink" title="Description"></a>Description</h4><p>Set the arrangement format for children elements.</p>
+<h4 id="Value-4"><a href="#Value-4" class="headerlink" title="Value"></a>Value</h4><ul>
+<li><p><code>flex-start</code>:</p>
+<p>  <strong>Default</strong>. Make children elements arrange from its own initial position. </p>
+</li>
+<li><p><code>flex-end</code></p>
+<p>  Make children elements arrange from its own end position. But the order is not changed.</p>
+</li>
+<li><p><code>flex-center</code></p>
+<p>  Make children elements arrange in the center.</p>
+</li>
+<li><p><code>space-between</code></p>
+<p>  Make the first child align to the start position and the last child align to the end. The space between each child is the same.</p>
+</li>
+<li><p><code>space-around</code></p>
+<p>  Allocate redundant space around both sides of each child.</p>
+</li>
+</ul>
+<h3 id="flex-wrap"><a href="#flex-wrap" class="headerlink" title="flex-wrap"></a>flex-wrap</h3><h4 id="Description-12"><a href="#Description-12" class="headerlink" title="Description"></a>Description</h4><p>Determine whether start a new line when the width is not enough to contain all flex items.</p>
+<h4 id="Value-5"><a href="#Value-5" class="headerlink" title="Value"></a>Value</h4><ul>
+<li><p><code>nowrap</code></p>
+<p>  Default. No new line</p>
+</li>
+<li><p><code>wrap</code></p>
+<p>  Yes.</p>
+</li>
+<li><p><code>reverse</code></p>
+<p>  Arrange from bottom to top.</p>
+</li>
+</ul>
+<h3 id="flex-direction"><a href="#flex-direction" class="headerlink" title="flex-direction"></a>flex-direction</h3><h4 id="Description-13"><a href="#Description-13" class="headerlink" title="Description"></a>Description</h4><p>Set the main axis.</p>
+<h4 id="Value-6"><a href="#Value-6" class="headerlink" title="Value"></a>Value</h4><ul>
+<li><p><code>row</code></p>
+<p>  Arrange horizontally from left to right.</p>
+</li>
+<li><p><code>reverse-row</code></p>
+<p>  Arrange horizontally from right to left.</p>
+</li>
+<li><p><code>column</code></p>
+<p>  Arrange vertically from top to bottom.</p>
+</li>
+<li><p><code>reverse-column</code></p>
+<p>  Arrange vertically from bottom to top.</p>
+</li>
+</ul>
+<h3 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h3><h4 id="Description-14"><a href="#Description-14" class="headerlink" title="Description"></a>Description</h4><p>A combination of <code>flex-wrap</code> and <code>flex-direction</code>. </p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Robert Wu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://robertrwu.github.io/blog/2020/03/20/CSS-Layout/">https://robertrwu.github.io/blog/2020/03/20/CSS-Layout/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/RobertRWu/RobertWuCDN/imgs/docu-cover/css.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/blog/2020/03/20/CSS-Transform/"><img class="prev_cover lazyload" data-src="https://cdn.jsdelivr.net/gh/RobertRWu/RobertWuCDN/imgs/docu-cover/css.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">Previous Post</div><div class="prev_info"><span>CSS Transform</span></div></a></div><div class="next-post pull_right"><a href="/blog/2020/03/20/CSS-Text-Formatting/"><img class="next_cover lazyload" data-src="https://cdn.jsdelivr.net/gh/RobertRWu/RobertWuCDN/imgs/docu-cover/css.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">Next Post</div><div class="next_info"><span>CSS Text Formatting</span></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> Comment</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = false == true ? true : false;
+var verify = false == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'uHQjR06luPOA7UcxQzG3trF9-gzGzoHsz',
+  appKey:'Y3bLSwmbupvCdtVVMi1Nomqa',
+  placeholder:'Please leave your comments',
+  avatar:'monsterid',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang:'en',
+  recordIP: true
+});</script></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By Robert Wu</div><div class="framework-info"><span>Driven </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="Read Mode"></i><i class="fa fa-plus" id="font_plus" title="Increase font size"></i><i class="fa fa-minus" id="font_minus" title="Decrease font size"></i><i class="darkmode fa fa-sun-o" id="darkmode" title="Dark Mode"></i></div><div id="rightside-config-show"><div id="rightside_config" title="Setting"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="Scroll to comment"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="Table of Contents" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="Back to top" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/fireworks.js"></script><script id="ribbon_piao" mobile="false" src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/piao.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end --></body></html>
